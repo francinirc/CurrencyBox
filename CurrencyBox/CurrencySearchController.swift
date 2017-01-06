@@ -8,26 +8,30 @@
 
 import UIKit
 
+// Protocols
+
+protocol CurrencySearchControllerDelegate {
+    
+    func getSelectedCurrency(currency: Currency)
+    
+}
+
+// Classes
+
 class CurrencySearchController: UITableViewController {
 
-    // Properties
+    // MARK: Properties
     let searchController = UISearchController(searchResultsController: nil)
-    
-    let filteredItems: [String] = []
-    
-    /*
-    let values = [("EUR", "Euro", "€ 1.00"),
-                  ("USD", "US Dollar", "U$ 10,123"),
-                  ("GBP", "Great Britain Pound", "£ 5000,00"),
-                  ("EUR", "Euro", "€ 1.00"),
-                  ("USD", "US Dollar", "U$ 10,123"),
-                  ("GBP", "Great Britain Pound", "£ 5000,00"),
-                  ("EUR", "Euro", "€ 1.00"),
-                  ("USD", "US Dollar", "U$ 10,123"),
-                  ("GBP", "Great Britain Pound", "£ 5000,00")]
-*/
-    
+    var filteredItems = [Currency]()
     var values = [Currency]()
+    var delegate: CurrencySearchControllerDelegate?
+    
+    
+    // MARK: ViewController constants
+    let cellIdentifier = "cellSearch"
+    
+    
+    // MARK: ViewController lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,67 +44,37 @@ class CurrencySearchController: UITableViewController {
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return filteredItems.count
+        }
         return self.values.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellSearch", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
-        cell.textLabel?.text = values[indexPath.row].initial! + " - " + values[indexPath.row].name!
-
+        if searchController.isActive && searchController.searchBar.text != "" {
+            cell.textLabel?.text = filteredItems[indexPath.row].initial! + " - " + filteredItems[indexPath.row].name!
+        } else {
+            cell.textLabel?.text = values[indexPath.row].initial! + " - " + values[indexPath.row].name!
+        }
         return cell
     }
-    
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.getSelectedCurrency(currency: values[indexPath.row])
+        print("passou")
+        
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // Class methods
     
@@ -111,33 +85,34 @@ class CurrencySearchController: UITableViewController {
         searchController.searchBar.delegate = self
         definesPresentationContext = true
         searchController.dimsBackgroundDuringPresentation = false
-        
     }
 
-   
-    // MARK: - UISearchBar Delegate
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-    }
-    
 }
 
 extension CurrencySearchController: UISearchBarDelegate {
 
-    // MARK: - UISearchResultsUpdating Delegate
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+
+}
+
+extension CurrencySearchController: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         filterContentForSearchText(searchController.searchBar.text!, scope: scope)
     }
-}
-
-extension CurrencySearchController: UISearchResultsUpdating {
+    
+        
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-//        filteredCandies = candies.filter({( candy : Candy) -> Bool in
-//            let categoryMatch = (scope == "All") || (candy.category == scope)
-//            return categoryMatch && candy.name.lowercaseString.containsString(searchText.lowercaseString)
-//        })
+        
+        filteredItems = values.filter({( item: Currency) -> Bool in
+            let itemMatch = (scope == "All") || (item.name == scope)
+            return itemMatch && (item.name?.lowercased().contains(searchText.lowercased()))!
+        })
+        
         tableView.reloadData()
     }
 }

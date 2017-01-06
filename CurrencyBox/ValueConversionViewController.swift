@@ -10,13 +10,13 @@ import UIKit
 
 class ValueConversionViewController: UIViewController {
 
+    // ViewController constants
+    let cellIdentifier = "convertedValues"
+    
     // Outlets
     @IBOutlet weak var convertedValuesTableView: UITableView!
     @IBOutlet weak var valueToConvert: UITextField!
-    
-    
-    // ViewController constants
-    let cellIdentifier = "convertedValues"
+    @IBOutlet weak var sourceCurrencyButton: UIButton!
     
     
     var values = [Currency]()
@@ -46,23 +46,28 @@ class ValueConversionViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func convertCurrencies(_ sender: AnyObject) {
-        //let numberOfCurrenciesToConvert = self.convertedValuesTableView.visibleCells.count
-        convertedValuesTableView.reloadData()
         
+        convertedValuesTableView.reloadData()
     }
     
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("SEGUE AQUI")
+        if segue.identifier == "selectCurrencySegue" {
+            if let searchViewController = segue.destination as? CurrencySearchController {
+                searchViewController.delegate = self
+            }
+        }
     }
-    */
+    
 
 }
+
+
+
 
 extension ValueConversionViewController: UITableViewDataSource {
     
@@ -79,6 +84,13 @@ extension ValueConversionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! ConvertedValuesCell
         
+        
+        cell.flagImageView.layer.borderWidth = 1
+        cell.flagImageView.layer.masksToBounds = false
+        cell.flagImageView.layer.borderColor = UIColor.lightGray.cgColor
+        cell.flagImageView.layer.cornerRadius = cell.flagImageView.frame.height / 2
+        cell.flagImageView.clipsToBounds = true
+        
         cell.flagImageView.image = UIImage(named: self.values[indexPath.row].countryFlag!)
         cell.initialsLabel.text = self.values[indexPath.row].initial
         cell.currencyNameLabel.text = self.values[indexPath.row].name
@@ -93,3 +105,14 @@ extension ValueConversionViewController: UITableViewDataSource {
     }
     
 }
+
+
+extension ValueConversionViewController: CurrencySearchControllerDelegate {
+    
+    func getSelectedCurrency(currency: Currency) {
+        let currencyTitle = "\(currency.symbol) - \(currency.initial)(\(currency.name)))"
+        sourceCurrencyButton.setTitle(currencyTitle, for: UIControlState.normal)
+        print(currencyTitle)
+    }
+}
+
