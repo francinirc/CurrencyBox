@@ -12,9 +12,10 @@ class CurrencySearchController: UITableViewController {
 
     // Properties
     let searchController = UISearchController(searchResultsController: nil)
-    //let items: [String] = []
+    
     let filteredItems: [String] = []
     
+    /*
     let values = [("EUR", "Euro", "€ 1.00"),
                   ("USD", "US Dollar", "U$ 10,123"),
                   ("GBP", "Great Britain Pound", "£ 5000,00"),
@@ -24,11 +25,14 @@ class CurrencySearchController: UITableViewController {
                   ("EUR", "Euro", "€ 1.00"),
                   ("USD", "US Dollar", "U$ 10,123"),
                   ("GBP", "Great Britain Pound", "£ 5000,00")]
-
+*/
+    
+    var values = [Currency]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        values = CurrencyDAO.getAllCurrencies()
         tableView.tableHeaderView = searchController.searchBar
         
         // Uncomment the following line to preserve selection between presentations
@@ -43,21 +47,21 @@ class CurrencySearchController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.values.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellSearch", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellSearch", for: indexPath)
 
-        cell.textLabel?.text = values[indexPath.row].0 + " - " + values[indexPath.row].1
+        cell.textLabel?.text = values[indexPath.row].initial! + " - " + values[indexPath.row].name!
 
         return cell
     }
@@ -112,7 +116,7 @@ class CurrencySearchController: UITableViewController {
 
    
     // MARK: - UISearchBar Delegate
-    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
     
@@ -121,7 +125,7 @@ class CurrencySearchController: UITableViewController {
 extension CurrencySearchController: UISearchBarDelegate {
 
     // MARK: - UISearchResultsUpdating Delegate
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         filterContentForSearchText(searchController.searchBar.text!, scope: scope)
@@ -129,7 +133,7 @@ extension CurrencySearchController: UISearchBarDelegate {
 }
 
 extension CurrencySearchController: UISearchResultsUpdating {
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
 //        filteredCandies = candies.filter({( candy : Candy) -> Bool in
 //            let categoryMatch = (scope == "All") || (candy.category == scope)
 //            return categoryMatch && candy.name.lowercaseString.containsString(searchText.lowercaseString)

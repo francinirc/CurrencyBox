@@ -8,62 +8,47 @@
 
 import UIKit
 
-class ValueConversionViewController: UIViewController, UITableViewDataSource {
+class ValueConversionViewController: UIViewController {
 
     // Outlets
     @IBOutlet weak var convertedValuesTableView: UITableView!
+    @IBOutlet weak var valueToConvert: UITextField!
     
     
     // ViewController constants
     let cellIdentifier = "convertedValues"
     
     
-    let values = [("EUR", "Euro", "€ 1.00"),
-                  ("USD", "US Dollar", "U$ 10,123"),
-                  ("GBP", "Great Britain Pound", "£ 5000,00")]
+    var values = [Currency]()
     
     
+    // ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.convertedValuesTableView.dataSource = self
-        
-        
-        // Do any additional setup after loading the view.
+        print(Helpful.getCurrentCurrencySymbol())
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
-    // MARK: TableView Datasource
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.values.count
-    }
-    
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! ConvertedValuesCell
+    override func viewWillAppear(_ animated: Bool) {
+        convertedValuesTableView.reloadData()
+        values = CurrencyDAO.getAllCurrencies()
         
-        cell.flagImageView.image = UIImage(named: "usa-flag")
-        cell.initialsLabel.text = self.values[indexPath.row].0
-        cell.currencyNameLabel.text = self.values[indexPath.row].1
-        cell.convertedValueLabel.text = self.values[indexPath.row].2
-        
-        return cell
-        
+        print(values.count)
     }
-
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Valores convertidos:"
-    }
+   
 
     // MARK: Unwind Segues
-    @IBAction func cancelToValueConversionViewController(segue:UIStoryboardSegue) {
+    @IBAction func cancelToValueConversionViewController(_ segue:UIStoryboardSegue) {
+    }
+    
+    
+    // MARK: Actions
+    
+    @IBAction func convertCurrencies(_ sender: AnyObject) {
+        //let numberOfCurrenciesToConvert = self.convertedValuesTableView.visibleCells.count
+        convertedValuesTableView.reloadData()
+        
     }
     
     
@@ -77,4 +62,34 @@ class ValueConversionViewController: UIViewController, UITableViewDataSource {
     }
     */
 
+}
+
+extension ValueConversionViewController: UITableViewDataSource {
+    
+    // MARK: TableView Datasource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if values.count > 0 {
+            return self.values.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! ConvertedValuesCell
+        
+        cell.flagImageView.image = UIImage(named: self.values[indexPath.row].countryFlag!)
+        cell.initialsLabel.text = self.values[indexPath.row].initial
+        cell.currencyNameLabel.text = self.values[indexPath.row].name
+        let valor = 1000.00
+        cell.convertedValueLabel.text = self.values[indexPath.row].symbol! + " " + String(valor)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Última atualização em: \(Date.init().toStringFullFormat())"
+    }
+    
 }

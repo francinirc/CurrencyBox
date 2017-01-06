@@ -10,18 +10,22 @@ import UIKit
 
 class BookmarksController: UITableViewController {
 
-    let values = [("EUR", "Euro", "€ 1.00"),
-                  ("USD", "US Dollar", "U$ 10,123"),
-                  ("GBP", "Great Britain Pound", "£ 5000,00"),
-                  ("EUR", "Euro", "€ 1.00"),
-                  ("USD", "US Dollar", "U$ 10,123"),
-                  ("GBP", "Great Britain Pound", "£ 5000,00"),
-                  ("EUR", "Euro", "€ 1.00"),
-                  ("USD", "US Dollar", "U$ 10,123"),
-                  ("GBP", "Great Britain Pound", "£ 5000,00")]
-   
+//    let values = [("EUR", "Euro", "€ 1.00"),
+//                  ("USD", "US Dollar", "U$ 10,123"),
+//                  ("GBP", "Great Britain Pound", "£ 5000,00"),
+//                  ("EUR", "Euro", "€ 1.00"),
+//                  ("USD", "US Dollar", "U$ 10,123"),
+//                  ("GBP", "Great Britain Pound", "£ 5000,00"),
+//                  ("EUR", "Euro", "€ 1.00"),
+//                  ("USD", "US Dollar", "U$ 10,123"),
+//                  ("GBP", "Great Britain Pound", "£ 5000,00")]
+
+    let values = CurrencyDAO.getAllCurrencies()
+    
     let cellIdentifier = "currencyIdentifier"
     
+    
+    // MARK: ViewController Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,43 +37,63 @@ class BookmarksController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillDisappear(_ animated: Bool) {
+        print("Moedas selecionadas: ", CurrencyDAO.filteredCurrencies.count)
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.values.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier, forIndexPath: indexPath) as! CurrencyCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! CurrencyCell
 
-        cell.currencyLabel.text = values[indexPath.row].0 + " (" + values[indexPath.row].1 + ")"
-        cell.flagImageView.image = UIImage(named: "usa-flag")
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
-
+        cell.currencyLabel.text = "\(values[indexPath.row].initial!) (\(values[indexPath.row].name!))"
+        cell.flagImageView.image = UIImage(named: values[indexPath.row].countryFlag!)
+        
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        if cell?.accessoryType == UITableViewCellAccessoryType.None {
-            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        let currency = values[indexPath.row]
+        
+        if cell?.accessoryType == UITableViewCellAccessoryType.none {
+            cell?.accessoryType = UITableViewCellAccessoryType.checkmark
+            CurrencyDAO.filteredCurrencies.append(currency)
+            
         } else {
-            cell?.accessoryType = UITableViewCellAccessoryType.None
+            cell?.accessoryType = UITableViewCellAccessoryType.none
+            
+            let index = CurrencyDAO.filteredCurrencies.index { $0 === currency }
+            CurrencyDAO.filteredCurrencies.remove(at: index!)
         }
     }
 
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)
+//        
+//        let currency = values[indexPath.row]
+//        
+//        if cell?.accessoryType == UITableViewCellAccessoryType.none {
+//            cell?.accessoryType = UITableViewCellAccessoryType.checkmark
+//            CurrencyDAO.filteredCurrencies.append(currency)
+//            
+//        } else {
+//            cell?.accessoryType = UITableViewCellAccessoryType.none
+//            CurrencyDAO.filteredCurrencies.remove(at: indexPath.row)
+//        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

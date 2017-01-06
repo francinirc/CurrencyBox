@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyBox/GoogleFinanceAPIService.swift"
+            timestampString = "497902563.235471"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3"
+            endingLineNumber = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CurrencyBox.GoogleFinanceAPIService.deinit"
+                  moduleName = "CurrencyBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/francini/Documents/Projetos/Development/CurrencyBox/CurrencyBox/GoogleFinanceAPIService.swift"
+                  timestampString = "505252570.775854"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CurrencyBox.GoogleFinanceAPIService.init () -&gt; CurrencyBox.GoogleFinanceAPIService"
+                  moduleName = "CurrencyBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/francini/Documents/Projetos/Development/CurrencyBox/CurrencyBox/GoogleFinanceAPIService.swift"
+                  timestampString = "505252570.778295"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CurrencyBox.GoogleFinanceAPIService.__allocating_init () -&gt; CurrencyBox.GoogleFinanceAPIService"
+                  moduleName = "CurrencyBox"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/francini/Documents/Projetos/Development/CurrencyBox/CurrencyBox/GoogleFinanceAPIService.swift"
+                  timestampString = "505252570.780868"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		923EB0991E1D8CC700C500E4 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB0981E1D8CC700C500E4 /* Currency.swift */; };
+		923EB09B1E1EC2B100C500E4 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB09A1E1EC2B100C500E4 /* DateExtension.swift */; };
+		923EB09D1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB09C1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift */; };
+		923EB09F1E1FE53C00C500E4 /* Helpful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB09E1E1FE53C00C500E4 /* Helpful.swift */; };
 		92BC893A1D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC89391D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift */; };
+		92BC893E1D7F558600EAAF2D /* Convertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC893D1D7F558600EAAF2D /* Convertion.swift */; };
 		92CADD721D668726007F4F3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD711D668726007F4F3F /* AppDelegate.swift */; };
 		92CADD7A1D668726007F4F3F /* CurrencyBox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD781D668726007F4F3F /* CurrencyBox.xcdatamodeld */; };
 		92CADD7C1D668726007F4F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92CADD7B1D668726007F4F3F /* Assets.xcassets */; };
@@ -23,7 +28,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		923EB0981E1D8CC700C500E4 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		923EB09A1E1EC2B100C500E4 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		923EB09C1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyLayerAPIService.swift; sourceTree = "<group>"; };
+		923EB09E1E1FE53C00C500E4 /* Helpful.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpful.swift; sourceTree = "<group>"; };
 		92BC89391D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleFinanceAPIService.swift; sourceTree = "<group>"; };
+		92BC893D1D7F558600EAAF2D /* Convertion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convertion.swift; sourceTree = "<group>"; };
 		92CADD6E1D668726007F4F3F /* CurrencyBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92CADD711D668726007F4F3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92CADD791D668726007F4F3F /* CurrencyBox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyBox.xcdatamodel; sourceTree = "<group>"; };
@@ -55,8 +65,25 @@
 			isa = PBXGroup;
 			children = (
 				92BC89391D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift */,
+				923EB09C1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		92BC893B1D7F556C00EAAF2D /* VO */ = {
+			isa = PBXGroup;
+			children = (
+				92BC893D1D7F558600EAAF2D /* Convertion.swift */,
+				923EB0981E1D8CC700C500E4 /* Currency.swift */,
+			);
+			name = VO;
+			sourceTree = "<group>";
+		};
+		92BC893C1D7F557100EAAF2D /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DAO;
 			sourceTree = "<group>";
 		};
 		92CADD651D668726007F4F3F = {
@@ -94,6 +121,7 @@
 				92CADD711D668726007F4F3F /* AppDelegate.swift */,
 				92CADD7B1D668726007F4F3F /* Assets.xcassets */,
 				92CADD801D668726007F4F3F /* Info.plist */,
+				923EB09E1E1FE53C00C500E4 /* Helpful.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -101,6 +129,8 @@
 		92CADD871D668737007F4F3F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				92BC893C1D7F557100EAAF2D /* DAO */,
+				92BC893B1D7F556C00EAAF2D /* VO */,
 				92CADD781D668726007F4F3F /* CurrencyBox.xcdatamodeld */,
 			);
 			name = Model;
@@ -140,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				92CADD961D68F119007F4F3F /* UIColorExtension.swift */,
+				923EB09A1E1EC2B100C500E4 /* DateExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -171,12 +202,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Francini Carvalho";
 				TargetAttributes = {
 					92CADD6D1D668726007F4F3F = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = ZXJT95MMX8;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -216,12 +248,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				923EB0991E1D8CC700C500E4 /* Currency.swift in Sources */,
+				923EB09F1E1FE53C00C500E4 /* Helpful.swift in Sources */,
 				92CADD9D1D69211B007F4F3F /* BookmarksController.swift in Sources */,
 				92CADD911D6694D7007F4F3F /* ValueConversionViewController.swift in Sources */,
 				92CADD9B1D691F02007F4F3F /* QuickConversionController.swift in Sources */,
 				92CADD991D68F712007F4F3F /* CurrencySearchController.swift in Sources */,
+				923EB09B1E1EC2B100C500E4 /* DateExtension.swift in Sources */,
 				92CADD941D68E26C007F4F3F /* ConvertedValuesCell.swift in Sources */,
 				92CADD721D668726007F4F3F /* AppDelegate.swift in Sources */,
+				923EB09D1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift in Sources */,
+				92BC893E1D7F558600EAAF2D /* Convertion.swift in Sources */,
 				92CADD9F1D6B75CF007F4F3F /* CurrencyCell.swift in Sources */,
 				92CADD7A1D668726007F4F3F /* CurrencyBox.xcdatamodeld in Sources */,
 				92BC893A1D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift in Sources */,
@@ -265,8 +302,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -311,8 +350,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -331,6 +372,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -341,11 +383,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZXJT95MMX8;
 				INFOPLIST_FILE = CurrencyBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.francini.CurrencyBox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -355,11 +399,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZXJT95MMX8;
 				INFOPLIST_FILE = CurrencyBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.francini.CurrencyBox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
