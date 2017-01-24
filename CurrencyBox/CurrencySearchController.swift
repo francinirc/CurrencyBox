@@ -83,6 +83,7 @@ class CurrencySearchController: UITableViewController {
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        searchController.searchBar.backgroundColor = UIColor.tealColor()
         definesPresentationContext = true
         searchController.dimsBackgroundDuringPresentation = false
     }
@@ -92,27 +93,31 @@ class CurrencySearchController: UITableViewController {
 extension CurrencySearchController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+        filterContentForSearchText(searchBar.text!)
     }
-
+    
 }
 
 extension CurrencySearchController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+        //let searchBar = searchController.searchBar
+        //let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchController.searchBar.text!)
     }
-    
+
+   
         
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String) {
         
         filteredItems = values.filter({( item: Currency) -> Bool in
-            let itemMatch = (scope == "All") || (item.name == scope)
-            return itemMatch && (item.name?.lowercased().contains(searchText.lowercased()))!
+           // let itemMatch = (scope == "All") || (item.name == scope)
+            return (item.name?.lowercased().contains(searchText.lowercased()))!
         })
         
         tableView.reloadData()
     }
+    
+    
+    
 }
