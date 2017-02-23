@@ -46,26 +46,25 @@ class ValueConversionViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func convertCurrencies(_ sender: AnyObject) {
-        
         convertedValuesTableView.reloadData()
     }
     
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("SEGUE AQUI")
+    
+    //func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "selectCurrencySegue" {
-            if let searchViewController = segue.destination as? CurrencySearchController {
-                searchViewController.delegate = self
-            }
+            
+            let destinationNavigationController = segue.destination as! UINavigationController
+            let targetController = destinationNavigationController.topViewController as! CurrencySearchController
+            
+            targetController.delegate = self            
         }
     }
-    
 
 }
-
 
 
 
@@ -110,9 +109,10 @@ extension ValueConversionViewController: UITableViewDataSource {
 extension ValueConversionViewController: CurrencySearchControllerDelegate {
     
     func getSelectedCurrency(currency: Currency) {
-        let currencyTitle = "\(currency.symbol) - \(currency.initial)(\(currency.name)))"
+        let currencyTitle = "\(currency.symbol!) - \(currency.initial!)(\(currency.name!))"
         sourceCurrencyButton.setTitle(currencyTitle, for: UIControlState.normal)
-        print(currencyTitle)
+        print("----", currencyTitle)
+    
     }
 }
 

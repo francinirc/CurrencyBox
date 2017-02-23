@@ -22,10 +22,10 @@ class CurrencySearchController: UITableViewController {
 
     // MARK: Properties
     let searchController = UISearchController(searchResultsController: nil)
-    var filteredItems = [Currency]()
-    var values = [Currency]()
+    var filteredCurrencies = [Currency]()
+    var currencies = [Currency]()
     var delegate: CurrencySearchControllerDelegate?
-    
+    //var delegate: ValueConversionViewController?
     
     // MARK: ViewController constants
     let cellIdentifier = "cellSearch"
@@ -36,11 +36,12 @@ class CurrencySearchController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        values = CurrencyDAO.getAllCurrencies()
+        setupSearchBar()
+        currencies = CurrencyDAO.getAllCurrencies()
         tableView.tableHeaderView = searchController.searchBar
         
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        //self.clearsSelectionOnViewWillAppear = false
 
     }
 
@@ -52,9 +53,9 @@ class CurrencySearchController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.isActive && searchController.searchBar.text != "" {
-            return filteredItems.count
+            return filteredCurrencies.count
         }
-        return self.values.count
+        return self.currencies.count
     }
 
     
@@ -62,25 +63,27 @@ class CurrencySearchController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
         if searchController.isActive && searchController.searchBar.text != "" {
-            cell.textLabel?.text = filteredItems[indexPath.row].initial! + " - " + filteredItems[indexPath.row].name!
+            cell.textLabel?.text = filteredCurrencies[indexPath.row].initial! + " - " + filteredCurrencies[indexPath.row].name!
         } else {
-            cell.textLabel?.text = values[indexPath.row].initial! + " - " + values[indexPath.row].name!
+            cell.textLabel?.text = currencies[indexPath.row].initial! + " - " + currencies[indexPath.row].name!
         }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.getSelectedCurrency(currency: values[indexPath.row])
+        delegate?.getSelectedCurrency(currency: currencies[indexPath.row])
+        _ = self.presentingViewController?.dismiss(animated: true, completion: nil)
+        //_ = self.dismiss(animated: true, completion: nil)
         print("passou")
-        
+        print(currencies[indexPath.row].name!)
     }
 
 
-    // Class methods
+    // MARK: Class methods
+    
     
     // Search bar
     func setupSearchBar() {
-        // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.backgroundColor = UIColor.tealColor()
@@ -101,23 +104,17 @@ extension CurrencySearchController: UISearchBarDelegate {
 extension CurrencySearchController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        //let searchBar = searchController.searchBar
-        //let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         filterContentForSearchText(searchController.searchBar.text!)
     }
 
-   
         
     func filterContentForSearchText(_ searchText: String) {
-        
-        filteredItems = values.filter({( item: Currency) -> Bool in
-           // let itemMatch = (scope == "All") || (item.name == scope)
+        filteredCurrencies = currencies.filter({( item: Currency) -> Bool in
             return (item.name?.lowercased().contains(searchText.lowercased()))!
         })
         
         tableView.reloadData()
     }
-    
-    
+        
     
 }
