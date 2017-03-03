@@ -27,7 +27,19 @@ class ValueConversionViewController: UIViewController {
         super.viewDidLoad()
 
         self.convertedValuesTableView.dataSource = self
-        print(Helpful.getCurrentCurrencySymbol())
+        print(Helper.getCurrentCurrencySymbol())
+        
+        FixerioAPIService.getLatestRates(fromCurrency: "USD") { (convertion, error) in
+            if let convertion = convertion {
+                self.values = convertion.currencies!
+                
+                DispatchQueue.main.async {
+                    self.convertedValuesTableView.reloadData()
+                    print("atualizou")
+                }
+            }
+            
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +94,6 @@ extension ValueConversionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! ConvertedValuesCell
-        
         
         cell.flagImageView.layer.borderWidth = 1
         cell.flagImageView.layer.masksToBounds = false

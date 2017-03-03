@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		923EB0991E1D8CC700C500E4 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB0981E1D8CC700C500E4 /* Currency.swift */; };
 		923EB09B1E1EC2B100C500E4 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB09A1E1EC2B100C500E4 /* DateExtension.swift */; };
-		923EB09D1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB09C1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift */; };
-		923EB09F1E1FE53C00C500E4 /* Helpful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB09E1E1FE53C00C500E4 /* Helpful.swift */; };
-		92BC893A1D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC89391D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift */; };
+		923EB09F1E1FE53C00C500E4 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923EB09E1E1FE53C00C500E4 /* Helper.swift */; };
 		92BC893E1D7F558600EAAF2D /* Convertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC893D1D7F558600EAAF2D /* Convertion.swift */; };
+		92C5EEFD1E5F7A2000D37F5D /* FixerioAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5EEFC1E5F7A2000D37F5D /* FixerioAPIService.swift */; };
+		92C5EEFF1E69B65E00D37F5D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5EEFE1E69B65E00D37F5D /* StringExtension.swift */; };
 		92CADD721D668726007F4F3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD711D668726007F4F3F /* AppDelegate.swift */; };
 		92CADD7A1D668726007F4F3F /* CurrencyBox.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD781D668726007F4F3F /* CurrencyBox.xcdatamodeld */; };
 		92CADD7C1D668726007F4F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92CADD7B1D668726007F4F3F /* Assets.xcassets */; };
@@ -30,10 +30,10 @@
 /* Begin PBXFileReference section */
 		923EB0981E1D8CC700C500E4 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		923EB09A1E1EC2B100C500E4 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		923EB09C1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyLayerAPIService.swift; sourceTree = "<group>"; };
-		923EB09E1E1FE53C00C500E4 /* Helpful.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpful.swift; sourceTree = "<group>"; };
-		92BC89391D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleFinanceAPIService.swift; sourceTree = "<group>"; };
+		923EB09E1E1FE53C00C500E4 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		92BC893D1D7F558600EAAF2D /* Convertion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convertion.swift; sourceTree = "<group>"; };
+		92C5EEFC1E5F7A2000D37F5D /* FixerioAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixerioAPIService.swift; sourceTree = "<group>"; };
+		92C5EEFE1E69B65E00D37F5D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		92CADD6E1D668726007F4F3F /* CurrencyBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92CADD711D668726007F4F3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92CADD791D668726007F4F3F /* CurrencyBox.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyBox.xcdatamodel; sourceTree = "<group>"; };
@@ -64,8 +64,7 @@
 		92BC89381D7F4C6E00EAAF2D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				92BC89391D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift */,
-				923EB09C1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift */,
+				92C5EEFC1E5F7A2000D37F5D /* FixerioAPIService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -121,7 +120,7 @@
 				92CADD711D668726007F4F3F /* AppDelegate.swift */,
 				92CADD7B1D668726007F4F3F /* Assets.xcassets */,
 				92CADD801D668726007F4F3F /* Info.plist */,
-				923EB09E1E1FE53C00C500E4 /* Helpful.swift */,
+				923EB09E1E1FE53C00C500E4 /* Helper.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -171,6 +170,7 @@
 			children = (
 				92CADD961D68F119007F4F3F /* UIColorExtension.swift */,
 				923EB09A1E1EC2B100C500E4 /* DateExtension.swift */,
+				92C5EEFE1E69B65E00D37F5D /* StringExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -249,19 +249,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				923EB0991E1D8CC700C500E4 /* Currency.swift in Sources */,
-				923EB09F1E1FE53C00C500E4 /* Helpful.swift in Sources */,
+				923EB09F1E1FE53C00C500E4 /* Helper.swift in Sources */,
 				92CADD9D1D69211B007F4F3F /* BookmarksController.swift in Sources */,
 				92CADD911D6694D7007F4F3F /* ValueConversionViewController.swift in Sources */,
+				92C5EEFF1E69B65E00D37F5D /* StringExtension.swift in Sources */,
 				92CADD9B1D691F02007F4F3F /* QuickConversionController.swift in Sources */,
 				92CADD991D68F712007F4F3F /* CurrencySearchController.swift in Sources */,
 				923EB09B1E1EC2B100C500E4 /* DateExtension.swift in Sources */,
 				92CADD941D68E26C007F4F3F /* ConvertedValuesCell.swift in Sources */,
+				92C5EEFD1E5F7A2000D37F5D /* FixerioAPIService.swift in Sources */,
 				92CADD721D668726007F4F3F /* AppDelegate.swift in Sources */,
-				923EB09D1E1FDB7800C500E4 /* CurrencyLayerAPIService.swift in Sources */,
 				92BC893E1D7F558600EAAF2D /* Convertion.swift in Sources */,
 				92CADD9F1D6B75CF007F4F3F /* CurrencyCell.swift in Sources */,
 				92CADD7A1D668726007F4F3F /* CurrencyBox.xcdatamodeld in Sources */,
-				92BC893A1D7F4D5000EAAF2D /* GoogleFinanceAPIService.swift in Sources */,
 				92CADD971D68F119007F4F3F /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

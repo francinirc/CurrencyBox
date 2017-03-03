@@ -10,7 +10,7 @@ import Foundation
 
 class Convertion {
     
-    var fromCurrency: String?
-    var toCurrency: String?
-    var rate: Double?
+    var currencyBase: String?
+    var date: Date?
+    var currencies: [Currency]?
 }

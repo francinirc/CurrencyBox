@@ -1,5 +1,5 @@
 //
-//  CurrencyLayerService.swift
+//  Helpful.swift
 //  CurrencyBox
 //
 //  Created by Francini Roberta de Carvalho on 06/01/17.
@@ -9,8 +9,10 @@
 import Foundation
 
 
-class CurrencyLayerAPIService {
+class Helper {
     
-    
+    static func getCurrentCurrencySymbol() -> String {
+        return Locale.current.currencySymbol!
+    }
     
 }
