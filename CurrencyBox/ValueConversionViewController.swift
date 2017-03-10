@@ -13,40 +13,31 @@ class ValueConversionViewController: UIViewController {
     // ViewController constants
     let cellIdentifier = "convertedValues"
     
+    
     // Outlets
     @IBOutlet weak var convertedValuesTableView: UITableView!
     @IBOutlet weak var valueToConvert: UITextField!
     @IBOutlet weak var sourceCurrencyButton: UIButton!
     
     
-    var values = [Currency]()
+    // Properties
+    var bookmarkedCurrencies = [Currency]()
+    var sourceCurrency = Currency(newName: "Brazilian Real", newInitial: "BRL", newCountryFlag: "", newSymbol: "R$") // por padrão, carregar a moeda configurada no telefone
+    var values = [Double]()
     
     
-    // ViewController Lifecycle
+    // MARK: ViewController Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.convertedValuesTableView.dataSource = self
         print(Helper.getCurrentCurrencySymbol())
-        
-        FixerioAPIService.getLatestRates(fromCurrency: "USD") { (convertion, error) in
-            if let convertion = convertion {
-                self.values = convertion.currencies!
-                
-                DispatchQueue.main.async {
-                    self.convertedValuesTableView.reloadData()
-                    print("atualizou")
-                }
-            }
-            
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        convertedValuesTableView.reloadData()
-        values = CurrencyDAO.getAllCurrencies()
-        
-        print(values.count)
+        bookmarkedCurrencies = CurrencyDAO.filteredCurrencies //CurrencyDAO.getAllCurrencies()
+        getRates()
     }
    
 
@@ -58,13 +49,17 @@ class ValueConversionViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func convertCurrencies(_ sender: AnyObject) {
-        convertedValuesTableView.reloadData()
+        if valueToConvert.text!.isEmpty {
+            showAlert(message: "Informe um valor para converter.")
+            
+        } else {
+            getRates()
+        }
     }
     
     
     // MARK: - Navigation
     
-    //func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "selectCurrencySegue" {
@@ -74,6 +69,47 @@ class ValueConversionViewController: UIViewController {
             
             targetController.delegate = self            
         }
+    }
+    
+    // MARK: - Class methods
+    
+    func getRates() {
+        FixerioAPIService.getLatestRates(fromCurrency: sourceCurrency.initial!, toCurrencies: bookmarkedCurrencies) { (convertion, error) in
+            if let convertion = convertion {
+                //self.values = convertion.currencies!
+                
+                DispatchQueue.main.async {
+                    self.convertValues(convertion: convertion)
+                    self.convertedValuesTableView.reloadData()
+                    print("atualizou")
+                }
+            }
+        }
+    }
+    
+    func convertValues(convertion: Convertion) {
+        if !valueToConvert.text!.isEmpty {
+            let baseValue = Double(valueToConvert.text!)
+
+            for i in 0...convertion.currencies!.count - 1 {
+                let value = convertion.currencies![i].rate! * baseValue!
+                values.append(value)
+            }
+            
+            print("values = ", values.count)
+        } else {
+            
+        }
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+        }
+        
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 
 }
@@ -85,9 +121,18 @@ extension ValueConversionViewController: UITableViewDataSource {
     // MARK: TableView Datasource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if values.count > 0 {
-            return self.values.count
+        if bookmarkedCurrencies.count > 0 {
+            tableView.backgroundView = UIView()
+            
+            return self.bookmarkedCurrencies.count
         } else {
+            let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text = "Nenhuma moeda selecionada :("
+            noDataLabel.textColor = UIColor.darkGray
+            noDataLabel.textAlignment = .center
+            
+            tableView.backgroundView = noDataLabel
+            
             return 0
         }
     }
@@ -101,17 +146,25 @@ extension ValueConversionViewController: UITableViewDataSource {
         cell.flagImageView.layer.cornerRadius = cell.flagImageView.frame.height / 2
         cell.flagImageView.clipsToBounds = true
         
-        cell.flagImageView.image = UIImage(named: self.values[indexPath.row].countryFlag!)
-        cell.initialsLabel.text = self.values[indexPath.row].initial
-        cell.currencyNameLabel.text = self.values[indexPath.row].name
-        let valor = 1000.00
-        cell.convertedValueLabel.text = self.values[indexPath.row].symbol! + " " + String(valor)
+        cell.flagImageView.image = UIImage(named: self.bookmarkedCurrencies[indexPath.row].countryFlag!)
+        cell.initialsLabel.text = self.bookmarkedCurrencies[indexPath.row].initial
+        cell.currencyNameLabel.text = self.bookmarkedCurrencies[indexPath.row].name
+        print(bookmarkedCurrencies.count)
+        print(values.count)
+        
+        if bookmarkedCurrencies.count > 0 && values.count > 0 {
+            cell.convertedValueLabel.text = self.bookmarkedCurrencies[indexPath.row].symbol! + " " + String(values[indexPath.row])
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Última atualização em: \(Date.init().toStringFullFormat())"
+        if bookmarkedCurrencies.count > 0 {
+            return "Última atualização em: \(Date.init().toStringFullFormat())"
+        } else {
+            return ""
+        }
     }
     
 }
@@ -120,6 +173,8 @@ extension ValueConversionViewController: UITableViewDataSource {
 extension ValueConversionViewController: CurrencySearchControllerDelegate {
     
     func getSelectedCurrency(currency: Currency) {
+        sourceCurrency = currency
+        
         let currencyTitle = "\(currency.symbol!) - \(currency.initial!)(\(currency.name!))"
         sourceCurrencyButton.setTitle(currencyTitle, for: UIControlState.normal)
         print("----", currencyTitle)

@@ -11,10 +11,12 @@ import Foundation
 
 class FixerioAPIService {
     
-    static let fixerioEndpoint = "https://api.fixer.io/latest?base=USD" //"http://api.fixer.io/latest"
+    static var fixerioEndpoint = "https://api.fixer.io/latest?base=BRL"
     
-    static func getLatestRates(fromCurrency: String, completion: @escaping (_ convertion: Convertion?, _ error: Error?) -> Void) {
+    static func getLatestRates(fromCurrency: String, toCurrencies: [Currency], completion: @escaping (_ convertion: Convertion?, _ error: Error?) -> Void) {
         var convertion: Convertion?
+        print(fromCurrency)
+       // fixerioEndpoint = fixerioEndpoint + "?base=" + fromCurrency
  
         guard let url = URL(string: fixerioEndpoint) else {
             print("Error: cannot create URL")
@@ -47,8 +49,10 @@ class FixerioAPIService {
                 //print("JSON = ", json)
                 convertion = Convertion()
                 convertion?.currencyBase = fromCurrency
+                convertion?.currencies = toCurrencies
+                
                 readJson(object: json, convertionItem: &convertion!)
-                print(convertion!.currencies!.count)
+                //print(convertion!.currencies!.count)
                 
             } catch let error as NSError {
                 print("Error = \(error.localizedDescription)")
@@ -72,23 +76,31 @@ class FixerioAPIService {
             return
         }
         
-        let currencies = ["BRL", "CAD", "GBP", "JPY", "EUR"]
+        //let currencies = ["BRL", "CAD", "GBP", "JPY", "EUR"]
         let convertion = convertionItem
         
         convertion.date = date.toShortDate()
-        convertion.currencies = [Currency]()
+        //convertion.currencies = [Currency]()
         
-        for item in currencies {
+        for item in convertion.currencies! {
             if let rate = rates[item] as? Double {
+
+                item.rate = rate
                 
-                let currency = Currency()
-                currency.initial = item
-                currency.rate = rate
+//                let currency = Currency()
+//                currency.initial = item.initial
+//                currency.rate = rate
                 
-                convertion.currencies?.append(currency)
+                //convertion.currencies?.append(currency)
             }
         }
         
+    }
+    
+    
+    static func getAllCurrencyRates(completion: @escaping (_ convertion: Convertion?, _ error: Error?) -> Void) {
+    
+    
     }
     
 }

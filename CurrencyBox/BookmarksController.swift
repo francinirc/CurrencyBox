@@ -80,20 +80,6 @@ class BookmarksController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath)
-//        
-//        let currency = values[indexPath.row]
-//        
-//        if cell?.accessoryType == UITableViewCellAccessoryType.none {
-//            cell?.accessoryType = UITableViewCellAccessoryType.checkmark
-//            CurrencyDAO.filteredCurrencies.append(currency)
-//            
-//        } else {
-//            cell?.accessoryType = UITableViewCellAccessoryType.none
-//            CurrencyDAO.filteredCurrencies.remove(at: indexPath.row)
-//        }
-    }
 
     /*
     // Override to support conditional editing of the table view.
