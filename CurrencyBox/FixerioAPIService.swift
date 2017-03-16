@@ -83,7 +83,7 @@ class FixerioAPIService {
         //convertion.currencies = [Currency]()
         
         for item in convertion.currencies! {
-            if let rate = rates[item] as? Double {
+            if let rate = rates[item.initial!] as? Double {
 
                 item.rate = rate
                 

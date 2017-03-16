@@ -88,3 +88,7 @@ build\
 \
 # End of https://www.gitignore.io/api/xcode,swift}
 .DS_Store
+
+CurrencyBox.xcodeproj/project.xcworkspace/xcuserdata/francini.xcuserdatad/UserInterfaceState.xcuserstate
+
+CurrencyBox.xcodeproj/xcuserdata/francini.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist

@@ -51,7 +51,10 @@ class ValueConversionViewController: UIViewController {
     @IBAction func convertCurrencies(_ sender: AnyObject) {
         if valueToConvert.text!.isEmpty {
             showAlert(message: "Informe um valor para converter.")
-            
+        
+        } else if bookmarkedCurrencies.count == 0 {
+            showAlert(message: "Marque as moedas desejadas.")
+        
         } else {
             getRates()
         }
@@ -89,7 +92,7 @@ class ValueConversionViewController: UIViewController {
     
     func convertValues(convertion: Convertion) {
         if !valueToConvert.text!.isEmpty {
-            let baseValue = Double(valueToConvert.text!)
+            let baseValue = Double(valueToConvert.text!) // tratar "." e ","
 
             for i in 0...convertion.currencies!.count - 1 {
                 let value = convertion.currencies![i].rate! * baseValue!
