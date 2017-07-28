@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WEY-EL-auX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WEY-EL-auX">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -67,10 +68,10 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="convertedValues" rowHeight="88" id="nzv-to-2v4" customClass="ConvertedValuesCell" customModule="CurrencyBox" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="414" height="88"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nzv-to-2v4" id="Dbb-W7-BD5">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="87"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="U6t-j0-W27">
@@ -173,7 +174,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z9V-N5-abc" id="9Q1-vV-3Wc">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -229,7 +230,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cGd-uK-iKv" id="dTl-n4-Mfn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uk-flag" translatesAutoresizingMaskIntoConstraints="NO" id="nki-so-MgU">
@@ -355,29 +356,6 @@
             <point key="canvasLocation" x="2985" y="-645"/>
         </scene>
         <!--Conversão rápida-->
-        <scene sceneID="Vhg-pO-LaF">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZTM-kV-Omf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Conversão rápida" image="currency-conversion" id="fGL-Oe-ZwS"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BoH-5Q-gpd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="gvr-iQ-eBN" kind="relationship" relationship="rootViewController" id="8YU-gz-mfJ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Isl-ZM-RRB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="372" y="475"/>
-        </scene>
-        <!--Conversão rápida-->
         <scene sceneID="FxF-a8-OLK">
             <objects>
                 <viewController id="gvr-iQ-eBN" customClass="QuickConversionController" customModule="CurrencyBox" customModuleProvider="target" sceneMemberID="viewController">
@@ -399,7 +377,6 @@
     </scenes>
     <resources>
         <image name="currency" width="25" height="25"/>
-        <image name="currency-conversion" width="25" height="25"/>
         <image name="multiple-currencies" width="25" height="25"/>
         <image name="uk-flag" width="2400" height="1575"/>
     </resources>

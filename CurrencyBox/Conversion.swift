@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Convertion {
+class Conversion {
     
     var currencyBase: String?
     var date: Date?

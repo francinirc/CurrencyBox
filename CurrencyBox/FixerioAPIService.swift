@@ -13,8 +13,8 @@ class FixerioAPIService {
     
     static var fixerioEndpoint = "https://api.fixer.io/latest?base=BRL"
     
-    static func getLatestRates(fromCurrency: String, toCurrencies: [Currency], completion: @escaping (_ convertion: Convertion?, _ error: Error?) -> Void) {
-        var convertion: Convertion?
+    static func getLatestRates(fromCurrency: String, toCurrencies: [Currency], completion: @escaping (_ conversion: Conversion?, _ error: Error?) -> Void) {
+        var conversion: Conversion?
         print(fromCurrency)
        // fixerioEndpoint = fixerioEndpoint + "?base=" + fromCurrency
  
@@ -30,14 +30,14 @@ class FixerioAPIService {
         let task = URLSession.shared.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
             
             if error != nil {
-                print("Error = \(error)")
+                print("Error = \(String(describing: error))")
                 completion(nil, error)
             }
             
             
             // imprimindo o resultado retornado
-            _ = String(data: data!, encoding: String.Encoding.utf8)
-            //print("responseString = \(responseString)")
+            let responseString = String(data: data!, encoding: String.Encoding.utf8)
+            print("responseString = \(String(describing: responseString))")
             
             // o parse do objeto retornado pode ficar em um bloco de tratamneto de erro, para o caso de ocorrer alguma exceção ao tentar converter o objeto
             do {
@@ -47,25 +47,25 @@ class FixerioAPIService {
                     return
                 }
                 //print("JSON = ", json)
-                convertion = Convertion()
-                convertion?.currencyBase = fromCurrency
-                convertion?.currencies = toCurrencies
+                conversion = Conversion()
+                conversion?.currencyBase = fromCurrency
+                conversion?.currencies = toCurrencies
                 
-                readJson(object: json, convertionItem: &convertion!)
-                //print(convertion!.currencies!.count)
+                readJson(object: json, convertionItem: &conversion!)
+                //print(conversion!.currencies!.count)
                 
             } catch let error as NSError {
                 print("Error = \(error.localizedDescription)")
             }
         
-            completion(convertion, nil)
+            completion(conversion, nil)
         })
         
         // resume a execução da task, se a mesma estiver suspensa
         task.resume()
     }
     
-    static func readJson(object: [String: AnyObject], convertionItem: inout Convertion) {
+    static func readJson(object: [String: AnyObject], convertionItem: inout Conversion) {
         guard let date = object["date"] as? String else {
             print("can't convert")
             return
@@ -77,12 +77,12 @@ class FixerioAPIService {
         }
         
         //let currencies = ["BRL", "CAD", "GBP", "JPY", "EUR"]
-        let convertion = convertionItem
+        let conversion = convertionItem
         
-        convertion.date = date.toShortDate()
-        //convertion.currencies = [Currency]()
+        conversion.date = date.toShortDate()
+        //conversion.currencies = [Currency]()
         
-        for item in convertion.currencies! {
+        for item in conversion.currencies! {
             if let rate = rates[item.initial!] as? Double {
 
                 item.rate = rate
@@ -91,14 +91,15 @@ class FixerioAPIService {
 //                currency.initial = item.initial
 //                currency.rate = rate
                 
-                //convertion.currencies?.append(currency)
+                //conversion.currencies?.append(currency)
+                
             }
         }
-        
+        print(conversion)
     }
     
     
-    static func getAllCurrencyRates(completion: @escaping (_ convertion: Convertion?, _ error: Error?) -> Void) {
+    static func getAllCurrencyRates(completion: @escaping (_ conversion: Conversion?, _ error: Error?) -> Void) {
     
     
     }

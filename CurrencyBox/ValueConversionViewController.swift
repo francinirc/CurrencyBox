@@ -22,7 +22,8 @@ class ValueConversionViewController: UIViewController {
     
     // Properties
     var bookmarkedCurrencies = [Currency]()
-    var sourceCurrency = Currency(newName: "Brazilian Real", newInitial: "BRL", newCountryFlag: "", newSymbol: "R$") // por padrão, carregar a moeda configurada no telefone
+    // por padrão, carregar a moeda configurada no telefone
+    var sourceCurrency = Currency(newName: "Brazilian Real", newInitial: "BRL", newCountryFlag: "", newSymbol: "R$")
     var values = [Double]()
     
     
@@ -37,7 +38,8 @@ class ValueConversionViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         bookmarkedCurrencies = CurrencyDAO.filteredCurrencies //CurrencyDAO.getAllCurrencies()
-        getRates()
+        //getRates()
+        checkForConversion()
     }
    
 
@@ -49,15 +51,7 @@ class ValueConversionViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func convertCurrencies(_ sender: AnyObject) {
-        if valueToConvert.text!.isEmpty {
-            showAlert(message: "Informe um valor para converter.")
-        
-        } else if bookmarkedCurrencies.count == 0 {
-            showAlert(message: "Marque as moedas desejadas.")
-        
-        } else {
-            getRates()
-        }
+        checkForConversion()
     }
     
     
@@ -76,13 +70,26 @@ class ValueConversionViewController: UIViewController {
     
     // MARK: - Class methods
     
+    func checkForConversion() {
+        if valueToConvert.text!.isEmpty {
+            showAlert(message: "Informe um valor para converter.")
+            
+        } else if bookmarkedCurrencies.count == 0 {
+            showAlert(message: "Marque as moedas desejadas.")
+            
+        } else {
+            getRates()
+        }
+
+    }
+    
     func getRates() {
-        FixerioAPIService.getLatestRates(fromCurrency: sourceCurrency.initial!, toCurrencies: bookmarkedCurrencies) { (convertion, error) in
-            if let convertion = convertion {
-                //self.values = convertion.currencies!
+        FixerioAPIService.getLatestRates(fromCurrency: sourceCurrency.initial!, toCurrencies: bookmarkedCurrencies) { (conversion, error) in
+            if let conversion = conversion {
+                //self.values = conversion.currencies!
                 
                 DispatchQueue.main.async {
-                    self.convertValues(convertion: convertion)
+                    self.convertValues(conversion: conversion)
                     self.convertedValuesTableView.reloadData()
                     print("atualizou")
                 }
@@ -90,12 +97,12 @@ class ValueConversionViewController: UIViewController {
         }
     }
     
-    func convertValues(convertion: Convertion) {
+    func convertValues(conversion: Conversion) {
         if !valueToConvert.text!.isEmpty {
             let baseValue = Double(valueToConvert.text!) // tratar "." e ","
 
-            for i in 0...convertion.currencies!.count - 1 {
-                let value = convertion.currencies![i].rate! * baseValue!
+            for i in 0...conversion.currencies!.count - 1 {
+                let value = conversion.currencies![i].rate! * baseValue!
                 values.append(value)
             }
             
@@ -113,6 +120,10 @@ class ValueConversionViewController: UIViewController {
         
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 
 }
