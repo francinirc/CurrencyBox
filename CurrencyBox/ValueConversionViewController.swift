@@ -32,14 +32,17 @@ class ValueConversionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.convertedValuesTableView.dataSource = self
+        convertedValuesTableView.dataSource = self
+        hideKeyboard()
         print(Helper.getCurrentCurrencySymbol())
+        
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         bookmarkedCurrencies = CurrencyDAO.filteredCurrencies //CurrencyDAO.getAllCurrencies()
         //getRates()
-        checkForConversion()
+        //checkForConversion()
     }
    
 
@@ -122,12 +125,20 @@ class ValueConversionViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-
 }
 
+extension UIViewController {
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+            action: #selector(UIViewController.dismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
 
 
 extension ValueConversionViewController: UITableViewDataSource {
@@ -167,7 +178,8 @@ extension ValueConversionViewController: UITableViewDataSource {
         print(values.count)
         
         if bookmarkedCurrencies.count > 0 && values.count > 0 {
-            cell.convertedValueLabel.text = self.bookmarkedCurrencies[indexPath.row].symbol! + " " + String(values[indexPath.row])
+            let valueString = String(format: "%.2f",values[indexPath.row])
+            cell.convertedValueLabel.text = "\(self.bookmarkedCurrencies[indexPath.row].symbol!) \(valueString)"
         }
         
         return cell

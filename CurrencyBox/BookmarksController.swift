@@ -20,7 +20,7 @@ class BookmarksController: UITableViewController {
 //                  ("USD", "US Dollar", "U$ 10,123"),
 //                  ("GBP", "Great Britain Pound", "£ 5000,00")]
 
-    let values = CurrencyDAO.getAllCurrencies()
+    var values = CurrencyDAO.getAllCurrencies()
     
     let cellIdentifier = "currencyIdentifier"
     
@@ -80,7 +80,8 @@ class BookmarksController: UITableViewController {
         }
     }
 
-
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -101,21 +102,17 @@ class BookmarksController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        let item = values[fromIndexPath.row]
+        values.remove(at: fromIndexPath.row)
+        values.insert(item, at: to.row)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
-
-
+    
 
 }

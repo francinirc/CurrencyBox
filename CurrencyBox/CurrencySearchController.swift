@@ -93,6 +93,7 @@ class CurrencySearchController: UITableViewController {
 
 }
 
+
 extension CurrencySearchController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
@@ -100,6 +101,7 @@ extension CurrencySearchController: UISearchBarDelegate {
     }
     
 }
+
 
 extension CurrencySearchController: UISearchResultsUpdating {
     
