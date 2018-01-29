@@ -15,6 +15,7 @@ class ConvertedValuesCell: UITableViewCell {
     @IBOutlet weak var initialsLabel: UILabel!
     @IBOutlet weak var currencyNameLabel: UILabel!
     @IBOutlet weak var convertedValueLabel: UILabel!
+    @IBOutlet weak var defaultValueConvertedLabel: UILabel!
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {

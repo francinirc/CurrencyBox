@@ -29,6 +29,7 @@
 		92CADD9F1D6B75CF007F4F3F /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD9E1D6B75CF007F4F3F /* CurrencyCell.swift */; };
 		92E3CA231F2BC25600CB2E03 /* ManagedCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3CA221F2BC25600CB2E03 /* ManagedCurrency.swift */; };
 		92E3CA251F2BC28D00CB2E03 /* ManagedConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3CA241F2BC28D00CB2E03 /* ManagedConversion.swift */; };
+		92EB5D7C201B5EEC009235F6 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB5D7B201B5EEC009235F6 /* UIViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		92CADD9E1D6B75CF007F4F3F /* CurrencyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		92E3CA221F2BC25600CB2E03 /* ManagedCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedCurrency.swift; sourceTree = "<group>"; };
 		92E3CA241F2BC28D00CB2E03 /* ManagedConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedConversion.swift; sourceTree = "<group>"; };
+		92EB5D7B201B5EEC009235F6 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				92CADD961D68F119007F4F3F /* UIColorExtension.swift */,
 				923EB09A1E1EC2B100C500E4 /* DateExtension.swift */,
 				92C5EEFE1E69B65E00D37F5D /* StringExtension.swift */,
+				92EB5D7B201B5EEC009235F6 /* UIViewControllerExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				92E3CA251F2BC28D00CB2E03 /* ManagedConversion.swift in Sources */,
 				92CADD941D68E26C007F4F3F /* ConvertedValuesCell.swift in Sources */,
 				92E3CA231F2BC25600CB2E03 /* ManagedCurrency.swift in Sources */,
+				92EB5D7C201B5EEC009235F6 /* UIViewControllerExtension.swift in Sources */,
 				92C5EEFD1E5F7A2000D37F5D /* FixerioAPIService.swift in Sources */,
 				92CADD721D668726007F4F3F /* AppDelegate.swift in Sources */,
 				921148BD1F28D40A00A93AC3 /* CurrencyDAO.swift in Sources */,
@@ -433,7 +437,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.francini.CurrencyBox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -450,7 +454,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.francini.CurrencyBox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -22,9 +22,8 @@ class ValueConversionViewController: UIViewController {
     
     // Properties
     var bookmarkedCurrencies = [Currency]()
-    // por padrão, carregar a moeda configurada no telefone
-    var sourceCurrency = Currency(newName: "Brazilian Real", newInitial: "BRL", newCountryFlag: "", newSymbol: "R$")
-    var values = [Double]()
+    var sourceCurrency = Currency(newName: "US Dollar", newInitial: "USD", newCountryFlag: "", newSymbol: "U$")
+    var valuesConverted = [Double]()
     
     
     // MARK: ViewController Lifecycle
@@ -35,14 +34,11 @@ class ValueConversionViewController: UIViewController {
         convertedValuesTableView.dataSource = self
         hideKeyboard()
         print(Helper.getCurrentCurrencySymbol())
-        
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        bookmarkedCurrencies = CurrencyDAO.filteredCurrencies //CurrencyDAO.getAllCurrencies()
-        //getRates()
-        //checkForConversion()
+        bookmarkedCurrencies = CurrencyDAO.filteredCurrencies 
+        checkForConversion()
     }
    
 
@@ -74,16 +70,39 @@ class ValueConversionViewController: UIViewController {
     // MARK: - Class methods
     
     func checkForConversion() {
-        if valueToConvert.text!.isEmpty {
-            showAlert(message: "Informe um valor para converter.")
-            
-        } else if bookmarkedCurrencies.count == 0 {
-            showAlert(message: "Marque as moedas desejadas.")
+        
+        let noValue = valueToConvert.text!.isEmpty
+        let noCurrencies = bookmarkedCurrencies.count == 0
+        
+        
+        if noValue && noCurrencies {
+            showAlert(message: "Informe um valor e as moedas que deseja converter")
+        } else if noValue {
+            showAlert(message: "Informe um valor que deseja converter")
+        } else if noCurrencies {
+            showAlert(message: "Informe as moedas que deseja converter")
             
         } else {
             getRates()
         }
-
+        
+//        var message = ""
+        
+//        if valueToConvert.text!.isEmpty {
+//            //showAlert(message: "Informe um valor para converter.")
+//            message = "Informe um valor para converter."
+//        } else if bookmarkedCurrencies.count == 0 {
+//            //showAlert(message: "Marque as moedas desejadas.")
+//            message = "Marque as moedas desejadas."
+//        }
+//        if message.isEmpty {
+//            getRates()
+//        } else {
+//            showAlert(message: message)
+//        }
+        
+        
+        
     }
     
     func getRates() {
@@ -102,16 +121,26 @@ class ValueConversionViewController: UIViewController {
     
     func convertValues(conversion: Conversion) {
         if !valueToConvert.text!.isEmpty {
-            let baseValue = Double(valueToConvert.text!) // tratar "." e ","
-
+            valuesConverted = [Double]()
+            let baseValue = stringToDouble(with: valueToConvert.text!)
+            
             for i in 0...conversion.currencies!.count - 1 {
-                let value = conversion.currencies![i].rate! * baseValue!
-                values.append(value)
+                let value = conversion.currencies![i].rate! * baseValue
+                valuesConverted.append(value)
             }
             
-            print("values = ", values.count)
+            print("values = ", valuesConverted.count)
         } else {
             
+        }
+    }
+    
+    func stringToDouble(with value: String) -> Double {
+        let string = value.replacingOccurrences(of: ",", with: ".")
+        if let doubleValue = Double(string) {
+            return doubleValue
+        } else {
+            return Double()
         }
     }
     
@@ -125,19 +154,6 @@ class ValueConversionViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-}
-
-extension UIViewController {
-    func hideKeyboard() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
-            action: #selector(UIViewController.dismissKeyboard))
-        
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
 }
 
 
@@ -175,11 +191,12 @@ extension ValueConversionViewController: UITableViewDataSource {
         cell.initialsLabel.text = self.bookmarkedCurrencies[indexPath.row].initial
         cell.currencyNameLabel.text = self.bookmarkedCurrencies[indexPath.row].name
         print(bookmarkedCurrencies.count)
-        print(values.count)
+        print(valuesConverted.count)
         
-        if bookmarkedCurrencies.count > 0 && values.count > 0 {
-            let valueString = String(format: "%.2f",values[indexPath.row])
-            cell.convertedValueLabel.text = "\(self.bookmarkedCurrencies[indexPath.row].symbol!) \(valueString)"
+        if bookmarkedCurrencies.count > 0 && valuesConverted.count > 0 {
+            let formattedValue = String(format: "%.3f",valuesConverted[indexPath.row])
+            cell.convertedValueLabel.text = "\(self.bookmarkedCurrencies[indexPath.row].symbol!) \(formattedValue)"
+            cell.defaultValueConvertedLabel.text = "1,00 \(sourceCurrency.initial!) = \(bookmarkedCurrencies[indexPath.row].initial!) \(bookmarkedCurrencies[indexPath.row].rate!)"
         }
         
         return cell

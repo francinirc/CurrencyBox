@@ -40,6 +40,10 @@ class CurrencySearchController: UITableViewController {
         currencies = CurrencyDAO.getAllCurrencies()
         tableView.tableHeaderView = searchController.searchBar
         
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        } 
+        
         // Uncomment the following line to preserve selection between presentations
         //self.clearsSelectionOnViewWillAppear = false
 
@@ -81,14 +85,13 @@ class CurrencySearchController: UITableViewController {
 
     // MARK: Class methods
     
-    
     // Search bar
     func setupSearchBar() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        searchController.searchBar.backgroundColor = UIColor.tealColor()
-        definesPresentationContext = true
+        searchController.searchBar.barTintColor = UIColor.tealColor()
         searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
     }
 
 }
