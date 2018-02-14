@@ -16,13 +16,13 @@ class CurrencyDAO {
     static func getAllCurrencies() -> [Currency] {
         var list = [Currency]()
         
-        let c1 = Currency(newName: "Brazilian Real", newInitial: "BRL", newCountryFlag: "br-flag", newSymbol: "R$")
-        let c2 = Currency(newName: "US Dollar", newInitial: "USD", newCountryFlag: "usa-flag", newSymbol: "U$")
-        let c3 = Currency(newName: "Euro", newInitial: "EUR", newCountryFlag: "ue-flag", newSymbol: "€")
-        let c4 = Currency(newName: "British Pound", newInitial: "GBP", newCountryFlag: "uk-flag", newSymbol: "£")
-        let c5 = Currency(newName: "Canadian Dollar", newInitial: "CAD", newCountryFlag: "canada-flag", newSymbol: "$")
+        let c1 = Currency(newName: "Brazilian Real", newCode: "BRL", newCountryFlag: "br-flag", newSymbol: "R$")
+        let c2 = Currency(newName: "US Dollar", newCode: "USD", newCountryFlag: "usa-flag", newSymbol: "U$")
+        let c3 = Currency(newName: "Euro", newCode: "EUR", newCountryFlag: "ue-flag", newSymbol: "€")
+        let c4 = Currency(newName: "British Pound", newCode: "GBP", newCountryFlag: "uk-flag", newSymbol: "£")
+        let c5 = Currency(newName: "Canadian Dollar", newCode: "CAD", newCountryFlag: "canada-flag", newSymbol: "$")
         //let c6 = Currency(newName: "Argentine Peso", newInitial: "ARS", newCountryFlag: "argentina-flag", newSymbol: "$")
-        let c7 = Currency(newName: "Japanese Yen", newInitial: "JPY", newCountryFlag: "japan-flag", newSymbol: "¥‎")
+        let c7 = Currency(newName: "Japanese Yen", newCode: "JPY", newCountryFlag: "japan-flag", newSymbol: "¥‎")
         
         list.append(c1)
         list.append(c2)

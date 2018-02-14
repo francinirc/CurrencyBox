@@ -57,7 +57,7 @@ class BookmarksController: UITableViewController {
 
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         
-        cell.currencyLabel.text = "\(values[indexPath.row].initial!) (\(values[indexPath.row].name!))"
+        cell.currencyLabel.text = "\(values[indexPath.row].code!) (\(values[indexPath.row].name!))"
         cell.flagImageView.image = UIImage(named: values[indexPath.row].countryFlag!)
         
         return cell
@@ -81,14 +81,10 @@ class BookmarksController: UITableViewController {
     }
 
     
+//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
     /*
     // Override to support editing the table view.
@@ -102,17 +98,17 @@ class BookmarksController: UITableViewController {
     }
     */
 
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        let item = values[fromIndexPath.row]
-        values.remove(at: fromIndexPath.row)
-        values.insert(item, at: to.row)
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
+//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+//        let item = values[fromIndexPath.row]
+//        values.remove(at: fromIndexPath.row)
+//        values.insert(item, at: to.row)
+//    }
+//
+//
+//    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        // Return false if you do not want the item to be re-orderable.
+//        return true
+//    }
     
 
 }

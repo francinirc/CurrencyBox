@@ -13,6 +13,7 @@ class FixerioAPIService {
     
     static var fixerioEndpoint = "https://api.fixer.io/latest?base=BRL"
     
+    // busca as taxas de conversão para as moedas selecionadas
     static func getLatestRates(fromCurrency: String, toCurrencies: [Currency], completion: @escaping (_ conversion: Conversion?, _ error: Error?) -> Void) {
         var conversion: Conversion?
         print(fromCurrency)
@@ -65,25 +66,26 @@ class FixerioAPIService {
         task.resume()
     }
     
+    // lê o json retornado pela API
     static func readJson(object: [String: AnyObject], convertionItem: inout Conversion) {
         guard let date = object["date"] as? String else {
-            print("can't convert")
+            print("can't convert - no date")
             return
         }
         
         guard let rates = object["rates"] else {
-            print("can't convert")
+            print("can't convert - no rates")
             return
         }
         
-        //let currencies = ["BRL", "CAD", "GBP", "JPY", "EUR"]
+        
         let conversion = convertionItem
         
         conversion.date = date.toShortDate()
         //conversion.currencies = [Currency]()
         
         for item in conversion.currencies! {
-            if let rate = rates[item.initial!] as? Double {
+            if let rate = rates[item.code!] as? Double {
 
                 item.rate = rate
                 
@@ -98,7 +100,7 @@ class FixerioAPIService {
         print(conversion)
     }
     
-    
+    // traz todas as moedas disponíveis para converter a partir da moeda selecionada
     static func getAllCurrencyRates(completion: @escaping (_ conversion: Conversion?, _ error: Error?) -> Void) {
     
     

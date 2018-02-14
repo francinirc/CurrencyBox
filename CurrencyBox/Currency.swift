@@ -13,19 +13,19 @@ import Foundation
 class Currency {
     
     var name: String?
-    var initial: String?
+    var code: String?
     var countryFlag: String?
     var symbol: String?
     var rate: Double?
     
     
     convenience init() {
-        self.init(newName: "", newInitial: "", newCountryFlag: "", newSymbol: "")
+        self.init(newName: "", newCode: "", newCountryFlag: "", newSymbol: "")
     }
     
-    init(newName: String, newInitial: String, newCountryFlag: String, newSymbol: String) {
+    init(newName: String, newCode: String, newCountryFlag: String, newSymbol: String) {
         name = newName
-        initial = newInitial
+        code = newCode
         countryFlag = newCountryFlag
         symbol = newSymbol
     }

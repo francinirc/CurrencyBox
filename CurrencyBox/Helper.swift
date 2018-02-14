@@ -8,11 +8,16 @@
 
 import Foundation
 
-
+/*
+ Methods used by any class
+ */
 class Helper {
     
     static func getCurrentCurrencySymbol() -> String {
         return Locale.current.currencySymbol!
     }
     
+    static func getCurrentCurrencyCode() -> String {
+        return Locale.current.currencyCode!
+    }
 }

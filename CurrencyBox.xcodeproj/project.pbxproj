@@ -24,7 +24,6 @@
 		92CADD941D68E26C007F4F3F /* ConvertedValuesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD931D68E26C007F4F3F /* ConvertedValuesCell.swift */; };
 		92CADD971D68F119007F4F3F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD961D68F119007F4F3F /* UIColorExtension.swift */; };
 		92CADD991D68F712007F4F3F /* CurrencySearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD981D68F712007F4F3F /* CurrencySearchController.swift */; };
-		92CADD9B1D691F02007F4F3F /* QuickConversionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD9A1D691F02007F4F3F /* QuickConversionController.swift */; };
 		92CADD9D1D69211B007F4F3F /* BookmarksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD9C1D69211B007F4F3F /* BookmarksController.swift */; };
 		92CADD9F1D6B75CF007F4F3F /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CADD9E1D6B75CF007F4F3F /* CurrencyCell.swift */; };
 		92E3CA231F2BC25600CB2E03 /* ManagedCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3CA221F2BC25600CB2E03 /* ManagedCurrency.swift */; };
@@ -52,7 +51,6 @@
 		92CADD931D68E26C007F4F3F /* ConvertedValuesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertedValuesCell.swift; sourceTree = "<group>"; };
 		92CADD961D68F119007F4F3F /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		92CADD981D68F712007F4F3F /* CurrencySearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySearchController.swift; sourceTree = "<group>"; };
-		92CADD9A1D691F02007F4F3F /* QuickConversionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickConversionController.swift; sourceTree = "<group>"; };
 		92CADD9C1D69211B007F4F3F /* BookmarksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksController.swift; sourceTree = "<group>"; };
 		92CADD9E1D6B75CF007F4F3F /* CurrencyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		92E3CA221F2BC25600CB2E03 /* ManagedCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedCurrency.swift; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 				92CADD921D68E228007F4F3F /* Cells */,
 				92CADD901D6694D7007F4F3F /* ValueConversionViewController.swift */,
 				92CADD981D68F712007F4F3F /* CurrencySearchController.swift */,
-				92CADD9A1D691F02007F4F3F /* QuickConversionController.swift */,
 				92CADD9C1D69211B007F4F3F /* BookmarksController.swift */,
 			);
 			name = Controllers;
@@ -285,7 +282,6 @@
 				92CADD911D6694D7007F4F3F /* ValueConversionViewController.swift in Sources */,
 				921148BF1F2A371600A93AC3 /* CoreDataManager.swift in Sources */,
 				92C5EEFF1E69B65E00D37F5D /* StringExtension.swift in Sources */,
-				92CADD9B1D691F02007F4F3F /* QuickConversionController.swift in Sources */,
 				92CADD991D68F712007F4F3F /* CurrencySearchController.swift in Sources */,
 				923EB09B1E1EC2B100C500E4 /* DateExtension.swift in Sources */,
 				92E3CA251F2BC28D00CB2E03 /* ManagedConversion.swift in Sources */,

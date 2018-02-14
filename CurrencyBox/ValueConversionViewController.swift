@@ -22,7 +22,7 @@ class ValueConversionViewController: UIViewController {
     
     // Properties
     var bookmarkedCurrencies = [Currency]()
-    var sourceCurrency = Currency(newName: "US Dollar", newInitial: "USD", newCountryFlag: "", newSymbol: "U$")
+    var sourceCurrency = Currency(newName: "US Dollar", newCode: "USD", newCountryFlag: "", newSymbol: "U$")
     var valuesConverted = [Double]()
     
     
@@ -33,7 +33,10 @@ class ValueConversionViewController: UIViewController {
 
         convertedValuesTableView.dataSource = self
         hideKeyboard()
+        setSourceCurrencyButton(currency: sourceCurrency)
+        
         print(Helper.getCurrentCurrencySymbol())
+        print(Helper.getCurrentCurrencyCode())
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -106,7 +109,7 @@ class ValueConversionViewController: UIViewController {
     }
     
     func getRates() {
-        FixerioAPIService.getLatestRates(fromCurrency: sourceCurrency.initial!, toCurrencies: bookmarkedCurrencies) { (conversion, error) in
+        FixerioAPIService.getLatestRates(fromCurrency: sourceCurrency.code!, toCurrencies: bookmarkedCurrencies) { (conversion, error) in
             if let conversion = conversion {
                 //self.values = conversion.currencies!
                 
@@ -154,6 +157,12 @@ class ValueConversionViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func setSourceCurrencyButton(currency: Currency) {
+        let currencyTitle = "\(currency.symbol!) - \(currency.code!)(\(currency.name!))"
+        sourceCurrencyButton.setTitle(currencyTitle, for: UIControlState.normal)
+        print("----", currencyTitle)
+    }
+    
 }
 
 
@@ -188,15 +197,15 @@ extension ValueConversionViewController: UITableViewDataSource {
         cell.flagImageView.clipsToBounds = true
         
         cell.flagImageView.image = UIImage(named: self.bookmarkedCurrencies[indexPath.row].countryFlag!)
-        cell.initialsLabel.text = self.bookmarkedCurrencies[indexPath.row].initial
+        cell.initialsLabel.text = self.bookmarkedCurrencies[indexPath.row].code
         cell.currencyNameLabel.text = self.bookmarkedCurrencies[indexPath.row].name
-        print(bookmarkedCurrencies.count)
-        print(valuesConverted.count)
+        print("Total currencies bookmarked = ", bookmarkedCurrencies.count)
+        print("Total values converted = ", valuesConverted.count)
         
         if bookmarkedCurrencies.count > 0 && valuesConverted.count > 0 {
-            let formattedValue = String(format: "%.3f",valuesConverted[indexPath.row])
+            let formattedValue = String(format: "%.4f",valuesConverted[indexPath.row])
             cell.convertedValueLabel.text = "\(self.bookmarkedCurrencies[indexPath.row].symbol!) \(formattedValue)"
-            cell.defaultValueConvertedLabel.text = "1,00 \(sourceCurrency.initial!) = \(bookmarkedCurrencies[indexPath.row].initial!) \(bookmarkedCurrencies[indexPath.row].rate!)"
+            cell.defaultValueConvertedLabel.text = "1,00 \(sourceCurrency.code!) = \(bookmarkedCurrencies[indexPath.row].code!) \(bookmarkedCurrencies[indexPath.row].rate!)"
         }
         
         return cell
@@ -217,11 +226,12 @@ extension ValueConversionViewController: CurrencySearchControllerDelegate {
     
     func getSelectedCurrency(currency: Currency) {
         sourceCurrency = currency
+
+        setSourceCurrencyButton(currency: currency)
         
-        let currencyTitle = "\(currency.symbol!) - \(currency.initial!)(\(currency.name!))"
-        sourceCurrencyButton.setTitle(currencyTitle, for: UIControlState.normal)
-        print("----", currencyTitle)
-    
+//        let currencyTitle = "\(currency.symbol!) - \(currency.code!)(\(currency.name!))"
+//        sourceCurrencyButton.setTitle(currencyTitle, for: UIControlState.normal)
+//        print("----", currencyTitle)
     }
 }
 

@@ -304,11 +304,14 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uAE-UR-BfR" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Moedas" image="multiple-currencies" id="zkp-wt-mlf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jyg-Sh-HcL">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Jyg-Sh-HcL">
+                        <rect key="frame" x="0.0" y="20" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
@@ -377,6 +380,6 @@
     <resources>
         <image name="currency" width="25" height="25"/>
         <image name="multiple-currencies" width="25" height="25"/>
-        <image name="uk-flag" width="2400" height="1575"/>
+        <image name="uk-flag" width="1200" height="787"/>
     </resources>
 </document>

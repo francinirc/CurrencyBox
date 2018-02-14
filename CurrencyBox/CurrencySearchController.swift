@@ -40,10 +40,7 @@ class CurrencySearchController: UITableViewController {
         currencies = CurrencyDAO.getAllCurrencies()
         tableView.tableHeaderView = searchController.searchBar
         
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        } 
-        
+       
         // Uncomment the following line to preserve selection between presentations
         //self.clearsSelectionOnViewWillAppear = false
 
@@ -67,9 +64,9 @@ class CurrencySearchController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
         if searchController.isActive && searchController.searchBar.text != "" {
-            cell.textLabel?.text = filteredCurrencies[indexPath.row].initial! + " - " + filteredCurrencies[indexPath.row].name!
+            cell.textLabel?.text = filteredCurrencies[indexPath.row].code! + " - " + filteredCurrencies[indexPath.row].name!
         } else {
-            cell.textLabel?.text = currencies[indexPath.row].initial! + " - " + currencies[indexPath.row].name!
+            cell.textLabel?.text = currencies[indexPath.row].code! + " - " + currencies[indexPath.row].name!
         }
         return cell
     }
